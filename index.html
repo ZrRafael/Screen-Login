@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Fujão</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-icon">
+            <i class="fas fa-user-circle"></i>
+        </div>
+        <h2>LOGIN</h2>
+        <p class="error-text" id="errorMsg" style="display: none;">Por favor, preencha os campos antes de continuar</p>
+        <p class="success-text" id="successMsg" style="display: none;">Dados preenchidos corretamente</p>
+
+        <form id="loginForm">
+            <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input type="text" id="uname" placeholder="Usuário">
+            </div>
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="pass" placeholder="Senha">
+            </div>
+
+            <div class="options">
+                <label><input type="checkbox"> Lembrar-me</label>
+                <a href="#">Esqueceu a senha?</a>
+            </div>
+
+            <div class="login-btn-container">
+                <button id="loginBtn" type="submit">Entrar</button>
+            </div>
+        </form>
+
+        <p class="signup-text">Não tem uma conta? <a href="#">Cadastre-se</a></p>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
