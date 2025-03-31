@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Sistema</title>
+    <title>Comparativo de IDEs para Jogos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         * {
@@ -17,54 +17,40 @@
             background: #0f172a;
             color: #fff;
             min-height: 100vh;
+            padding: 2rem;
         }
 
-        /* Navbar Styles */
-        .navbar {
-            background-color: #1e293b;
-            padding: 1rem 2rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav-content {
+        /* Main Content Styles */
+        .main-content {
             max-width: 1200px;
             margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #3b82f6;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .welcome-section {
+            background: linear-gradient(135deg, #1e293b, #334155);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
+        .welcome-section h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #fff;
         }
 
-        .nav-links a {
+        .welcome-section p {
             color: #94a3b8;
-            text-decoration: none;
-            transition: color 0.3s;
-            font-size: 0.95rem;
+            font-size: 1.1rem;
         }
 
-        .nav-links a:hover {
-            color: #60a5fa;
-        }
-
+        /* Botão de logout no canto superior direito do welcome-section */
         .logout-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
             padding: 0.5rem 1rem;
             background-color: #f43f5e;
             color: white;
@@ -79,183 +65,228 @@
             background-color: #e11d48;
         }
 
-        /* Main Content Styles */
-        .main-content {
-            max-width: 1200px;
-            margin: 6rem auto 2rem;
-            padding: 0 2rem;
-        }
-
-        .welcome-section {
-            background: linear-gradient(135deg, #1e293b, #334155);
+        /* Table Styles */
+        .table-container {
+            background: #1e293b;
             border-radius: 15px;
-            padding: 2rem;
-            margin-bottom: 2rem;
+            padding: 1.5rem;
+            overflow-x: auto;
+            margin-top: 2rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .welcome-section h1 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #334155;
+            border-right: 1px solid #334155;
+        }
+
+        th:last-child, td:last-child {
+            border-right: none;
+        }
+
+        th {
+            background-color: #334155;
+            color: #fff;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+
+        td {
+            color: #94a3b8;
+        }
+
+        /* Estilo para a primeira coluna */
+        td:first-child {
+            background-color: #1e40af;
+            color: #fff;
+            font-weight: 500;
+            border-right: 2px solid #334155;
+        }
+
+        tr:hover td:not(:first-child) {
+            background-color: #283548;
             color: #fff;
         }
 
-        .welcome-section p {
-            color: #94a3b8;
-            font-size: 1.1rem;
+        .feature-available {
+            color: #22c55e;
         }
 
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
+        .feature-unavailable {
+            color: #f43f5e;
         }
 
-        .dashboard-card {
-            background: #1e293b;
-            border-radius: 12px;
-            padding: 1.5rem;
-            transition: transform 0.3s, box-shadow 0.3s;
-            cursor: pointer;
+        .difficulty {
+            display: flex;
+            gap: 4px;
         }
 
-        .dashboard-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-        }
-
-        .dashboard-card i {
-            font-size: 2.5rem;
+        .difficulty i {
             color: #3b82f6;
-            margin-bottom: 1rem;
-        }
-
-        .dashboard-card h3 {
-            color: #fff;
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .dashboard-card p {
-            color: #94a3b8;
-            font-size: 0.9rem;
-        }
-
-        .stats-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .stat-card {
-            background: #334155;
-            border-radius: 10px;
-            padding: 1.5rem;
-            text-align: center;
-        }
-
-        .stat-card h4 {
-            color: #94a3b8;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-card .number {
-            color: #fff;
-            font-size: 1.8rem;
-            font-weight: bold;
         }
 
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
+            body {
+                padding: 1rem;
             }
             
-            .main-content {
-                margin-top: 5rem;
-                padding: 0 1rem;
+            th, td {
+                padding: 0.75rem;
+                font-size: 0.9rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="nav-content">
-            <div class="logo">
-                <i class="fas fa-cube"></i>
-                Dashboard
-            </div>
-            <div class="nav-links">
-                <a href="#"><i class="fas fa-home"></i> Início</a>
-                <a href="#"><i class="fas fa-chart-line"></i> Análises</a>
-                <a href="#"><i class="fas fa-cog"></i> Configurações</a>
-                <button class="logout-btn" onclick="logout()">
-                    <i class="fas fa-sign-out-alt"></i> Sair
-                </button>
-            </div>
-        </div>
-    </nav>
-
     <!-- Main Content -->
     <main class="main-content">
         <section class="welcome-section">
-            <h1>Bem-vindo ao Dashboard</h1>
-            <p>Gerencie suas atividades e monitore o desempenho do sistema</p>
+            <h1>Comparativo de IDEs para Desenvolvimento de Jogos</h1>
+            <p>Análise detalhada das principais IDEs disponíveis no mercado para desenvolvimento de jogos</p>
+            <button class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Sair
+            </button>
         </section>
 
-        <section class="stats-container">
-            <div class="stat-card">
-                <h4>Usuários Ativos</h4>
-                <div class="number">1,234</div>
-            </div>
-            <div class="stat-card">
-                <h4>Total de Acessos</h4>
-                <div class="number">5,678</div>
-            </div>
-            <div class="stat-card">
-                <h4>Tarefas Pendentes</h4>
-                <div class="number">42</div>
-            </div>
-            <div class="stat-card">
-                <h4>Projetos Ativos</h4>
-                <div class="number">15</div>
-            </div>
-        </section>
-
-        <div class="dashboard-grid">
-            <div class="dashboard-card">
-                <i class="fas fa-users"></i>
-                <h3>Gerenciar Usuários</h3>
-                <p>Adicione, edite e gerencie permissões de usuários do sistema</p>
-            </div>
-            <div class="dashboard-card">
-                <i class="fas fa-chart-bar"></i>
-                <h3>Relatórios</h3>
-                <p>Visualize e exporte relatórios detalhados e análises</p>
-            </div>
-            <div class="dashboard-card">
-                <i class="fas fa-tasks"></i>
-                <h3>Tarefas</h3>
-                <p>Acompanhe e gerencie as tarefas em andamento</p>
-            </div>
-            <div class="dashboard-card">
-                <i class="fas fa-bell"></i>
-                <h3>Notificações</h3>
-                <p>Configure e visualize alertas importantes do sistema</p>
-            </div>
-            <div class="dashboard-card">
-                <i class="fas fa-cog"></i>
-                <h3>Configurações</h3>
-                <p>Personalize as configurações do seu ambiente</p>
-            </div>
-            <div class="dashboard-card">
-                <i class="fas fa-question-circle"></i>
-                <h3>Suporte</h3>
-                <p>Acesse a documentação e entre em contato com o suporte</p>
-            </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Características</th>
+                        <th>Unity</th>
+                        <th>Unreal Engine</th>
+                        <th>Godot</th>
+                        <th>GameMaker Studio</th>
+                        <th>CryEngine</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Linguagens Suportadas</td>
+                        <td>C#</td>
+                        <td>C++, Blueprint Visual Scripting</td>
+                        <td>GDScript, C#, C++</td>
+                        <td>GML (GameMaker Language)</td>
+                        <td>C++, Lua, Schematyc</td>
+                    </tr>
+                    <tr>
+                        <td>Licença de Uso</td>
+                        <td>Gratuito até $200k/ano de receita</td>
+                        <td>Gratuito até $1M + 5% royalties após</td>
+                        <td>MIT (Open Source)</td>
+                        <td>Assinatura a partir de $39/mês</td>
+                        <td>Gratuito + 5% royalties</td>
+                    </tr>
+                    <tr>
+                        <td>Plataformas Suportadas</td>
+                        <td>Windows, Mac, Linux, Mobile, Web, Consoles, VR</td>
+                        <td>Windows, Mac, Linux, Mobile, Consoles, VR</td>
+                        <td>Windows, Mac, Linux, Mobile, Web, VR (experimental)</td>
+                        <td>Windows, Mac, Mobile, Consoles</td>
+                        <td>Windows, Linux, Consoles</td>
+                    </tr>
+                    <tr>
+                        <td>Asset Store</td>
+                        <td><i class="fas fa-check feature-available"></i> Muito extensa</td>
+                        <td><i class="fas fa-check feature-available"></i> Alta qualidade</td>
+                        <td><i class="fas fa-check feature-available"></i> Limitada mas crescendo</td>
+                        <td><i class="fas fa-check feature-available"></i> Moderada</td>
+                        <td><i class="fas fa-times feature-unavailable"></i> Limitada</td>
+                    </tr>
+                    <tr>
+                        <td>Curva de Aprendizado</td>
+                        <td>
+                            <div class="difficulty">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            Moderada
+                        </td>
+                        <td>
+                            <div class="difficulty">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            Alta
+                        </td>
+                        <td>
+                            <div class="difficulty">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            Baixa a Moderada
+                        </td>
+                        <td>
+                            <div class="difficulty">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            Baixa
+                        </td>
+                        <td>
+                            <div class="difficulty">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            Alta
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Requisitos Mínimos</td>
+                        <td>8GB RAM, GPU DX11, Windows 10</td>
+                        <td>16GB RAM, GPU DX11/12, SSD, Windows 10</td>
+                        <td>4GB RAM, GPU DX10, Windows 7+</td>
+                        <td>4GB RAM, GPU básica, Windows 7+</td>
+                        <td>8GB RAM, GPU DX11, Windows 10</td>
+                    </tr>
+                    <tr>
+                        <td>Custo de Aquisição</td>
+                        <td>Gratuito (com limitações), Plus: $40/mês, Pro: $150/mês</td>
+                        <td>Gratuito até $1M em receita</td>
+                        <td>100% Gratuito</td>
+                        <td>$39-$99/mês</td>
+                        <td>Gratuito + 5% royalties</td>
+                    </tr>
+                    <tr>
+                        <td>Suporte a 3D</td>
+                        <td><i class="fas fa-check feature-available"></i> Muito bom</td>
+                        <td><i class="fas fa-check feature-available"></i> Excelente</td>
+                        <td><i class="fas fa-check feature-available"></i> Bom</td>
+                        <td><i class="fas fa-check feature-available"></i> Básico</td>
+                        <td><i class="fas fa-check feature-available"></i> Muito bom</td>
+                    </tr>
+                    <tr>
+                        <td>Suporte a Sandbox</td>
+                        <td><i class="fas fa-check feature-available"></i> Completo</td>
+                        <td><i class="fas fa-check feature-available"></i> Avançado</td>
+                        <td><i class="fas fa-check feature-available"></i> Básico</td>
+                        <td><i class="fas fa-times feature-unavailable"></i> Limitado</td>
+                        <td><i class="fas fa-check feature-available"></i> Bom</td>
+                    </tr>
+                    <tr>
+                        <td>Características Extras</td>
+                        <td>Visual Scripting, Cloud Build, Multiplayer, Asset Store extensa</td>
+                        <td>Nanite, Lumen, MetaHuman, Ray Tracing avançado</td>
+                        <td>Leve, Open Source, Sistema de Nodes, Rápido desenvolvimento</td>
+                        <td>Drag-and-Drop, Fácil para 2D, Rápido protótipo</td>
+                        <td>SVOGI, Iluminação Global em tempo real</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </main>
 
